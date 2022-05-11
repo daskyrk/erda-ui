@@ -74,7 +74,7 @@ export default {
         'card-lg': '0 2px 8px 0 rgba(48,38,71,0.16)',
       },
       screens: {
-        'xs': '360px',
+        'xs': { 'max': '450px' },
       },
     },
   },

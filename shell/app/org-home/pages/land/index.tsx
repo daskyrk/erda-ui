@@ -111,17 +111,17 @@ const LandPage = () => {
 
   return (
     <div className="land-page flex items-center justify-center h-full">
-      <div className="absolute flex items-center justify-between left-20 right-20 top-5 z-10">
+      <div className="absolute flex items-center justify-between left-20 right-20 top-5 z-10 xs:left-3 xs:right-3">
         <ErdaIcon className="text-white" size={60} type="erda" />
         <UserMenu placement="bottomRight" size={36} align={{ offset: [0, -6] }} className="no-arrow" />
       </div>
-      <img className="bg-image" src={springBg} alt="background-image" />
-      <div className="content text-white z-10">
-        <div className="title">
+      <img className="bg-image xs:left-0 xs:w-full" src={springBg} alt="background-image" />
+      <div className="min-w-[730px] text-white z-10 xs:min-w-full xs:px-3">
+        <div className="title xs:text-[42px]">
           <div>{i18n.t('layout:On the Cloud')}</div>
           <div>{i18n.t('layout:Collaborative Application Development Platform')}</div>
         </div>
-        <div className="mt-8 org-select-text">{i18n.t('layout:Choose your organization space')}</div>
+        <div className="mt-8 xs:mt-2 org-select-text">{i18n.t('layout:Choose your organization space')}</div>
         <div
           ref={ref}
           className={`mt-4 rounded-sm h-16 py-5 text-default cursor-pointer flex items-center justify-between org-select ${
