@@ -73,6 +73,9 @@ export default {
         card: '0 1px 4px 0 rgba(48,38,71,0.16)',
         'card-lg': '0 2px 8px 0 rgba(48,38,71,0.16)',
       },
+      screens: {
+        'xs': '360px',
+      },
     },
   },
   variants: {
