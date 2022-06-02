@@ -15,7 +15,7 @@ import * as React from 'react';
 import { RadioTabs, ErdaIcon, EmptyHolder, Badge } from 'common';
 import { ENV_MAP } from 'project/common/config';
 import { map, debounce } from 'lodash';
-import { Drawer, Button, Input, Timeline, Spin, message } from 'antd';
+import { Drawer, Button, Input, Timeline, Spin, message, Alert } from 'antd';
 import { firstCharToUpper, goTo } from 'common/utils';
 import { useUpdate } from 'common/use-hooks';
 import routeInfoStore from 'core/stores/route';
@@ -36,6 +36,7 @@ import {
   createDeploy,
   getProjectRuntimeCount,
 } from 'project/services/deploy';
+import { queryWorkflow } from 'project/services/project-workflow';
 import AddDeploy from './add-deploy';
 
 import './index.scss';
@@ -61,6 +62,8 @@ const DeployContainer = () => {
     STAGING: 0,
     TEST: 0,
   });
+  const metaWorkflow = queryWorkflow.useData();
+  const targetBranchEnv = metaWorkflow.find((a) => a.name === env);
 
   const isAppDeploy = !!appId;
 
@@ -68,6 +71,9 @@ const DeployContainer = () => {
     getProjectRuntimeCount.fetch({ projectId, appId }).then((res) => {
       res?.data && setRuntimeCount(res.data);
     });
+    if (projectId) {
+      queryWorkflow.fetch({ projectID: +projectId });
+    }
   }, [projectId, appId]);
 
   const options = map(ENV_MAP, (v, k) => ({ label: `${v}(${runtimeCount[k] || 0})`, value: k }));
@@ -86,6 +92,7 @@ const DeployContainer = () => {
           options={options}
         />
       </div>
+      {targetBranchEnv && <Alert message={targetBranchEnv.targetBranch} />}
       <DeployContent
         key={env}
         appId={appId}
