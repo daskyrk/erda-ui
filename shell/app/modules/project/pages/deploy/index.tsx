@@ -12,10 +12,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import * as React from 'react';
-import { RadioTabs, ErdaIcon, EmptyHolder, Badge } from 'common';
+import { RadioTabs, ErdaIcon, EmptyHolder, Badge, ErdaAlert } from 'common';
 import { ENV_MAP } from 'project/common/config';
 import { map, debounce } from 'lodash';
-import { Drawer, Button, Input, Timeline, Spin, message, Alert } from 'antd';
+import { Drawer, Button, Input, Timeline, Spin, message } from 'antd';
 import { firstCharToUpper, goTo } from 'common/utils';
 import { useUpdate } from 'common/use-hooks';
 import routeInfoStore from 'core/stores/route';
@@ -63,7 +63,7 @@ const DeployContainer = () => {
     TEST: 0,
   });
   const metaWorkflow = queryWorkflow.useData();
-  const targetBranchEnv = metaWorkflow.find((a) => a.name === env);
+  const targetBranchEnv = metaWorkflow?.flows.find((a) => a.environment === env);
 
   const isAppDeploy = !!appId;
 
@@ -92,7 +92,7 @@ const DeployContainer = () => {
           options={options}
         />
       </div>
-      {targetBranchEnv && <Alert message={targetBranchEnv.targetBranch} />}
+      {targetBranchEnv && <ErdaAlert className="mt-2" message={targetBranchEnv.targetBranch} />}
       <DeployContent
         key={env}
         appId={appId}
